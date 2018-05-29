@@ -5,12 +5,14 @@
 extern keymap_config_t keymap_config;
 
 #define _QWERTY 0
-#define _LOWER 1
-#define _RAISE 2
+#define _MACOS 1
+#define _LOWER 2
+#define _RAISE 3
 #define _ADJUST 16
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
+  MACOS,
   LOWER,
   RAISE,
   ADJUST,
@@ -23,6 +25,9 @@ enum custom_keycodes {
 #define KC_RASE RAISE
 #define KC_RST RESET
 #define KC_DBUG DEBUG
+#define KC_QWER QWERTY
+#define KC_MAC MACOS
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -40,29 +45,43 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                  `----+----+----'        `----+----+----'
   ),
 
+  [_MACOS] = LAYOUT_kc(
+  //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
+     ESC , 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  ,DEL ,
+  //|----+----+----+----+----+----|              |----+----+----+----+----+----|
+     TAB , Q  , W  , E  , R  , T  ,                Y  , U  , I  , O  , P  ,BSPC,
+  //|----+----+----+----+----+----|              |----+----+----+----+----+----|
+     LGUI, A  , S  , D  , F  , G  ,                H  , J  , K  , L  ,SCLN,ENT ,
+  //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
+     LSFT, Z  , X  , C  , V  , B  ,HOME,     END , N  , M  ,COMM,DOT ,SLSH,RSFT,
+  //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
+                       LCTL,LALT,LOWR,         RASE, SPC, ENT
+  //                  `----+----+----'        `----+----+----'
+  ),
+
   [_LOWER] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
-         ,    ,    ,    ,    ,    ,                   ,    ,    ,    ,    ,    ,
+         , F1 , F2 , F3 , F4 , F5 ,                F6 , F7 , F8 , F9 ,F10 ,    ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
          ,    ,PGUP, UP ,PGDN,    ,               NLCK, P7 , P8 , P9 ,TAB ,    ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-         ,    ,LEFT,DOWN,RGHT,LBRC,               RBRC, P4 , P5 , P6 ,PLUS,BSLS,
+         ,    ,LEFT,DOWN,RGHT,    ,                   , P4 , P5 , P6 ,PLUS,BSLS,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-         ,    ,    ,    ,DOWN,LCBR,LPRN,     RPRN,RCBR, P1 , P2 , P3 ,MINS,    ,
+         ,    ,    ,    ,    ,    ,    ,         ,    , P1 , P2 , P3 ,MINS,    ,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
                            ,    ,    ,             , P0 , DOT
   //                  `----+----+----'        `----+----+----'
   ),
-
+// Symbols from standard egodox ez layout: https://configure.ergodox-ez.com/keyboard_layouts/new
   [_RAISE] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
-     F12 , F1 , F2 , F3 , F4 , F5 ,                F6 , F7 , F8 , F9 ,F10 ,F11 ,
+         ,F11 ,F12 ,F13 ,F14 ,F15 ,               F16 ,F17 ,F18 ,F19 ,F20 ,    ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,               INS ,PGDN,PGDN,MINS,EQL ,    ,
+         ,EXLM, AT ,LCBR,RCBR,PIPE,               INS ,PGDN,PGUP,MINS,EQL ,    ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-         ,MPRV,MNXT,VOLU,PGUP,UNDS,               LEFT,DOWN, UP ,RGHT,    ,QUOT,
+         ,HASH,DLR ,LPRN,RPRN,GRV ,               LEFT,DOWN, UP ,RGHT,    ,QUOT,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-         ,MSTP,MPLY,VOLD,PGDN,MINS,    ,         ,HOME,END ,    ,    ,    ,    ,
+         ,PERC,CIRC,LBRC,RBRC,TILD,    ,         ,HOME,END ,    ,    ,    ,    ,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
                            ,    ,    ,             ,    ,
   //                  `----+----+----'        `----+----+----'
@@ -70,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
-         ,    ,    ,    ,    ,    ,                   ,    ,    ,    ,    ,    ,
+     MAC ,    ,    ,    ,    ,    ,                   ,    ,    ,    ,    ,QWER,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
          ,    ,    ,    ,    ,    ,                   ,    ,    ,    ,    ,    ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
@@ -89,11 +108,19 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+    // Layer shifting code
     case QWERTY:
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_QWERTY);
+      }
+      return false;
+      break;
+    case MACOS:
+      if (record->event.pressed) {
+        persistent_default_layer_set(1UL<<_MACOS);
       }
       return false;
       break;
@@ -124,6 +151,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_ADJUST);
       }
       return false;
+      break;
+    // Use escape to cancel oneshot keys if active.
+    case KC_ESC:
+      if (record->event.pressed) {
+        bool queue = true;
+
+        if ((get_oneshot_mods ()) && !has_oneshot_mods_timed_out ()) {
+          clear_oneshot_mods ();
+          queue = false;
+        }
+        return queue;
+      }
+      return true;
       break;
   }
   return true;
