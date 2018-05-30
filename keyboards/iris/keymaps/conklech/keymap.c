@@ -4,34 +4,31 @@
 
 extern keymap_config_t keymap_config;
 
-#define _QWERTY 0
+#define _WINDOWS 0
 #define _MACOS 1
 #define _LOWER 2
 #define _RAISE 3
 #define _ADJUST 16
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  MACOS,
+  KC_WINDOWS = SAFE_RANGE,
+  KC_MACOS,
   LOWER,
   RAISE,
   ADJUST,
+  KC_WINRGHT,
+  KC_WINLEFT,
 };
 
 #define KC_ KC_TRNS
-#define _______ KC_TRNS
 
 #define KC_LOWR LOWER
 #define KC_RASE RAISE
-#define KC_RST RESET
-#define KC_DBUG DEBUG
-#define KC_QWER QWERTY
-#define KC_MAC MACOS
-
+#define KC_RESET RESET
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = LAYOUT_kc(
+  [_WINDOWS] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
      ESC , 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  ,DEL ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
@@ -87,38 +84,76 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                  `----+----+----'        `----+----+----'
   ),
 
+// should have window moving keys: on mac, command option left right
+    // move desktop: control alt gui left right left right
   [_ADJUST] = LAYOUT_kc(
-  //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
-     MAC ,    ,    ,    ,    ,    ,                   ,    ,    ,    ,    ,QWER,
-  //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,                   ,    ,    ,    ,    ,    ,
-  //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,                   ,    ,    ,    ,    ,    ,
-  //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-         ,RST ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,    ,    ,
-  //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
-                           ,    ,    ,             ,    ,
-  //                  `----+----+----'        `----+----+----'
+  //,--------+--------+--------+--------+--------+--------.                          ,--------+--------+--------+--------+--------+--------.
+     WINDOWS ,        ,        ,        ,        ,        ,                                   ,        ,        ,        ,        , MACOS  ,
+  //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
+             ,        ,        ,        ,        ,        ,                                   ,        ,        ,        ,        ,        ,
+  //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
+             ,        ,        ,        ,        ,        ,                           WINLEFT ,        ,        ,WINRGHT ,        ,        ,
+  //|--------+--------+--------+--------+--------+--------+--------.        ,--------|--------+--------+--------+--------+--------+--------|
+             , RESET  ,        ,        ,        ,        ,        ,                 ,        ,        ,        ,        ,        ,        ,
+  //`--------+--------+--------+----+---+--------+--------+--------/        \--------+--------+--------+---+----+--------+--------+--------'
+                                             ,        ,        ,                         ,        ,
+  //                                `--------+--------+--------'                `--------+--------+--------'
   )
 
 };
 
+uint16_t current_default_layer;
+
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
+  current_default_layer = default_layer;
 }
 
+void matrix_init_user(void) {
+    current_default_layer = eeconfig_read_default_layer();
+}
+
+// Use in switch(keycode). Needs SEND_STRING format.
+#define PROCESS_WINDOWS_MAC_KEY(keycode, winmacro, macmacro) \
+case keycode: \
+  if (record->event.pressed) { \
+    if (current_default_layer == 1UL<<_WINDOWS) { \
+      SEND_STRING(winmacro); \
+    } \
+    else { \
+      SEND_STRING(macmacro); \
+    } \
+  } \
+  return false; \
+  break;
+// End PROCESS_WINDOWS_MAC_KEY definition
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    // Layer shifting code
-    case QWERTY:
+    PROCESS_WINDOWS_MAC_KEY(KC_WINLEFT, "", SS_LGUI(SS_LALT(SS_TAP(X_LEFT))));
+    PROCESS_WINDOWS_MAC_KEY(KC_WINRGHT, "", SS_LGUI(SS_LALT(SS_TAP(X_RIGHT))));
+
+    // Use escape to cancel oneshot keys if active.
+    case KC_ESC:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_QWERTY);
+        bool queue = true;
+        if ((get_oneshot_mods ()) && !has_oneshot_mods_timed_out ()) {
+          clear_oneshot_mods ();
+          queue = false;
+        }
+        return queue;
+      }
+      return true;
+      break;
+    // Layer shifting code
+    case KC_WINDOWS:
+      if (record->event.pressed) {
+        persistent_default_layer_set(1UL<<_WINDOWS);
       }
       return false;
       break;
-    case MACOS:
+    case KC_MACOS:
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_MACOS);
       }
@@ -151,19 +186,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_ADJUST);
       }
       return false;
-      break;
-    // Use escape to cancel oneshot keys if active.
-    case KC_ESC:
-      if (record->event.pressed) {
-        bool queue = true;
-
-        if ((get_oneshot_mods ()) && !has_oneshot_mods_timed_out ()) {
-          clear_oneshot_mods ();
-          queue = false;
-        }
-        return queue;
-      }
-      return true;
       break;
   }
   return true;
