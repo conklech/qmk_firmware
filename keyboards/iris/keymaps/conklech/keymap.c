@@ -26,6 +26,13 @@ enum custom_keycodes {
 #define KC_RASE RAISE
 #define KC_RESET RESET
 
+// Objectives:
+//  - Navigate one-handed with either hand
+//
+//  - Easily type common convoluted legalisms with minimal thumb-dancing
+//    o Exhibit 1 at 12:5-13:2
+//    o Rule 12(b)(6)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_WINDOWS] = LAYOUT_kc(
@@ -34,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      TAB , Q  , W  , E  , R  , T  ,                Y  , U  , I  , O  , P  ,BSPC,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-     LCTL, A  , S  , D  , F  , G  ,                H  , J  , K  , L  ,SCLN,ENT ,
+     LCTL, A  , S  , D  , F  , G  ,                H  , J  , K  , L  ,SCLN,QUOT ,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
      LSFT, Z  , X  , C  , V  , B  ,HOME,     END , N  , M  ,COMM,DOT ,SLSH,RSFT,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
@@ -48,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      TAB , Q  , W  , E  , R  , T  ,                Y  , U  , I  , O  , P  ,BSPC,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-     LGUI, A  , S  , D  , F  , G  ,                H  , J  , K  , L  ,SCLN,ENT ,
+     LGUI, A  , S  , D  , F  , G  ,                H  , J  , K  , L  ,SCLN,QUOT,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
      LSFT, Z  , X  , C  , V  , B  ,HOME,     END , N  , M  ,COMM,DOT ,SLSH,RSFT,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
@@ -62,9 +69,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
          ,    ,PGUP, UP ,PGDN,    ,               NLCK, P7 , P8 , P9 ,TAB ,    ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-         ,    ,LEFT,DOWN,RGHT,    ,                   , P4 , P5 , P6 ,PLUS,BSLS,
+         ,    ,LEFT,DOWN,RGHT,    ,               LPRN, P4 , P5 , P6 ,PLUS,COLN,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,    ,         ,    , P1 , P2 , P3 ,MINS,    ,
+         ,    ,    , SPC, ENT,    ,    ,         ,RPRN, P1 , P2 , P3 ,MINS,    ,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
                            ,    ,    ,             , P0 , DOT
   //                  `----+----+----'        `----+----+----'
@@ -76,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
          ,EXLM, AT ,LCBR,RCBR,PIPE,               INS ,PGDN,PGUP,MINS,EQL ,    ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-         ,HASH,DLR ,LPRN,RPRN,GRV ,               LEFT,DOWN, UP ,RGHT,    ,QUOT,
+         ,HASH,DLR ,LPRN,RPRN,GRV ,               LEFT,DOWN, UP ,RGHT,    ,BSLS,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
          ,PERC,CIRC,LBRC,RBRC,TILD,    ,         ,HOME,END ,    ,    ,    ,    ,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
