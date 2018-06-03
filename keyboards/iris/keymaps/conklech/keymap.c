@@ -138,8 +138,8 @@ case keycode: \
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    PROCESS_WINDOWS_MAC_KEY(KC_WINLEFT, "", SS_LGUI(SS_LALT(SS_TAP(X_LEFT))));
-    PROCESS_WINDOWS_MAC_KEY(KC_WINRGHT, "", SS_LGUI(SS_LALT(SS_TAP(X_RIGHT))));
+    PROCESS_WINDOWS_MAC_KEY(KC_WINLEFT, SS_LGUI(SS_TAP(X_LEFT)), SS_LGUI(SS_LALT(SS_TAP(X_LEFT))));
+    PROCESS_WINDOWS_MAC_KEY(KC_WINRGHT, SS_LGUI(SS_TAP(X_RIGHT)), SS_LGUI(SS_LALT(SS_TAP(X_RIGHT))));
 
     // Use escape to cancel oneshot keys if active.
     case KC_ESC:
