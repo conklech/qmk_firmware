@@ -62,7 +62,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        LCTL,LALT,LOWR,         RASE, SPC, ENT
   //                  `----+----+----'        `----+----+----'
   ),
-
+// Move from desktop to desktop with left hand (to facilitate moving windows on MacOS,
+// which requires mouse-control left right)
   [_LOWER] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
          , F1 , F2 , F3 , F4 , F5 ,                F6 , F7 , F8 , F9 ,F10 ,    ,
@@ -76,7 +77,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                            ,    ,    ,             , P0 , DOT
   //                  `----+----+----'        `----+----+----'
   ),
+// Archive mail in Mail.app
+#define KC_ARCH RGUI(KC_ENT)
 // Symbols from standard egodox ez layout: https://configure.ergodox-ez.com/keyboard_layouts/new
+
+
   [_RAISE] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
          ,F11 ,F12 ,F13 ,F14 ,F15 ,               F16 ,F17 ,F18 ,F19 ,F20 ,    ,
@@ -85,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
          ,HASH,DLR ,LPRN,RPRN,GRV ,               LEFT,DOWN, UP ,RGHT,    ,BSLS,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-         ,PERC,CIRC,LBRC,RBRC,TILD,    ,         ,HOME,END ,    ,    ,    ,    ,
+         ,PERC,CIRC,LBRC,RBRC,TILD,    ,         ,HOME,END ,    ,    ,ARCH,    ,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
                            ,    ,    ,             ,    ,
   //                  `----+----+----'        `----+----+----'
@@ -99,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
              ,        ,        ,        ,        ,        ,                                   ,        ,        ,        ,        ,        ,
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
-             ,        ,        ,        ,        ,        ,                           WINLEFT ,        ,        ,WINRGHT ,        ,        ,
+             ,        ,        ,        ,        ,         ,                           WINLEFT ,        ,        ,WINRGHT ,        ,        ,
   //|--------+--------+--------+--------+--------+--------+--------.        ,--------|--------+--------+--------+--------+--------+--------|
              , RESET  ,        ,        ,        ,        ,        ,                 ,        ,        ,        ,        ,        ,        ,
   //`--------+--------+--------+----+---+--------+--------+--------/        \--------+--------+--------+---+----+--------+--------+--------'
