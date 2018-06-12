@@ -16,8 +16,10 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
-  KC_WINRGHT,
-  KC_WINLEFT,
+  KC_WINRGHT, // Move window to right
+  KC_WINLEFT, // Move window to left
+  KC_WINMAX, // Maximize window
+  KC_WINDISP, // Move window to next display
 };
 
 #define KC_ KC_TRNS
@@ -104,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
              ,        ,        ,        ,        ,        ,                                   ,        ,        ,        ,        ,        ,
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
-             ,        ,        ,        ,        ,         ,                           WINLEFT ,        ,        ,WINRGHT ,        ,        ,
+             ,        ,        ,        ,        ,        ,                           WINLEFT ,WINDISP ,WINMAX  ,WINRGHT ,        ,        ,
   //|--------+--------+--------+--------+--------+--------+--------.        ,--------|--------+--------+--------+--------+--------+--------|
              , RESET  ,        ,        ,        ,        ,        ,                 ,        ,        ,        ,        ,        ,        ,
   //`--------+--------+--------+----+---+--------+--------+--------/        \--------+--------+--------+---+----+--------+--------+--------'
@@ -145,6 +147,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     PROCESS_WINDOWS_MAC_KEY(KC_WINLEFT, SS_LGUI(SS_TAP(X_LEFT)), SS_LGUI(SS_LALT(SS_TAP(X_LEFT))));
     PROCESS_WINDOWS_MAC_KEY(KC_WINRGHT, SS_LGUI(SS_TAP(X_RIGHT)), SS_LGUI(SS_LALT(SS_TAP(X_RIGHT))));
+    PROCESS_WINDOWS_MAC_KEY(KC_WINMAX, SS_LGUI(SS_TAP(X_UP)), SS_LGUI(SS_LALT(SS_TAP(X_UP))));
+    PROCESS_WINDOWS_MAC_KEY(KC_WINDISP, "", SS_LCTRL(SS_LGUI(SS_LALT(SS_TAP(X_RIGHT)))));
 
     // Use escape to cancel oneshot keys if active.
     case KC_ESC:
