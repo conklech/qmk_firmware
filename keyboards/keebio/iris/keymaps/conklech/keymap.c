@@ -20,6 +20,7 @@ enum custom_keycodes {
   KC_WINLEFT, // Move window to left
   KC_WINMAX, // Maximize window
   KC_WINDISP, // Move window to next display
+  KC_APOS, // Apostrophe
 };
 
 #define KC_ KC_TRNS
@@ -34,6 +35,7 @@ enum custom_keycodes {
 //  - Easily type common convoluted legalisms with minimal thumb-dancing
 //    o Exhibit 1 at 12:5-13:2
 //    o Rule 12(b)(6)
+//  - ’997 Patent - ideally with numpad. Apostrophe is shift-alt-RBRC on Mac.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -70,11 +72,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
          , F1 , F2 , F3 , F4 , F5 ,                F6 , F7 , F8 , F9 ,F10 ,    ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-         ,    ,PGUP, UP ,PGDN,    ,               NLCK, P7 , P8 , P9 ,TAB ,    ,
+         ,    ,PGUP, UP ,PGDN,    ,               APOS, P7 , P8 , P9 ,TAB ,    ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-         ,    ,LEFT,DOWN,RGHT,    ,               LPRN, P4 , P5 , P6 ,PLUS,COLN,
+         ,    ,LEFT,DOWN,RGHT,    ,               LPRN, P4 , P5 , P6 ,COLN,PLUS,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-         ,    ,    , SPC, ENT,    ,    ,         ,RPRN, P1 , P2 , P3 ,MINS,    ,
+         ,    ,    , SPC, ENT,    ,    ,    NLCK ,RPRN, P1 , P2 , P3 ,MINS,    ,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
                            ,    ,    ,             , P0 , DOT
   //                  `----+----+----'        `----+----+----'
@@ -145,6 +147,7 @@ case keycode: \
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+    PROCESS_WINDOWS_MAC_KEY(KC_APOS, SS_TAP(X_QUOTE), SS_LSFT(SS_LALT(SS_TAP(X_RBRACKET))));
     PROCESS_WINDOWS_MAC_KEY(KC_WINLEFT, SS_LGUI(SS_TAP(X_LEFT)), SS_LGUI(SS_LALT(SS_TAP(X_LEFT))));
     PROCESS_WINDOWS_MAC_KEY(KC_WINRGHT, SS_LGUI(SS_TAP(X_RIGHT)), SS_LGUI(SS_LALT(SS_TAP(X_RIGHT))));
     PROCESS_WINDOWS_MAC_KEY(KC_WINMAX, SS_LGUI(SS_TAP(X_UP)), SS_LGUI(SS_LALT(SS_TAP(X_UP))));
