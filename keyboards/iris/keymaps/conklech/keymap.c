@@ -85,7 +85,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define KC_ARCH RGUI(KC_ENT)
 // Symbols from standard egodox ez layout: https://configure.ergodox-ez.com/keyboard_layouts/new
 
-
+// TODO: change bottom row of RH to include option/command left and right (move word)
+// and something for moving to beginning and end of line. it's weird to integrate with
+// the hjkl paradigm since home/end might be up/down or left/right. Rationalize.
   [_RAISE] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
          ,F11 ,F12 ,F13 ,F14 ,F15 ,               F16 ,F17 ,F18 ,F19 ,F20 ,    ,
