@@ -69,6 +69,13 @@ doxygen/
 secrets.tar
 id_rsa_*
 /.vs
-GPATH
-GRTAGS
-GTAGS
+
+# python things
+__pycache__
+.python-version
+
+# prerequisites for updating ChibiOS
+/util/fmpp*
+
+# Allow to exist but don't include it in the repo
+user_song_list.h
