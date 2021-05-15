@@ -145,9 +145,15 @@ case keycode: \
   break;
 // End PROCESS_WINDOWS_MAC_KEY definition
 
+/* Windows needs the following AutoHotkey/similar scripts:
+
+F21::’
+
+*/
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    PROCESS_WINDOWS_MAC_KEY(KC_APOS, SS_TAP(X_QUOTE), SS_LSFT(SS_LALT(SS_TAP(X_RBRACKET))));
+    PROCESS_WINDOWS_MAC_KEY(KC_APOS, SS_TAP(X_F21), SS_LSFT(SS_LALT(SS_TAP(X_RBRACKET))));
     PROCESS_WINDOWS_MAC_KEY(KC_WINLEFT, SS_LGUI(SS_TAP(X_LEFT)), SS_LGUI(SS_LALT(SS_TAP(X_LEFT))));
     PROCESS_WINDOWS_MAC_KEY(KC_WINRGHT, SS_LGUI(SS_TAP(X_RIGHT)), SS_LGUI(SS_LALT(SS_TAP(X_RIGHT))));
     PROCESS_WINDOWS_MAC_KEY(KC_WINMAX, SS_LGUI(SS_TAP(X_UP)), SS_LGUI(SS_LALT(SS_TAP(X_UP))));
