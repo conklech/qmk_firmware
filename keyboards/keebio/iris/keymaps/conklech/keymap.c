@@ -66,19 +66,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 // Move from desktop to desktop with left hand (to facilitate moving windows on MacOS,
 // which requires mouse-control left right)
-// It's desirable not to have a key over SPC, so that it's possible to type numbers
-// with spaces in between and also to avoid mistyping "123 text" as "1230text"
   [_LOWER] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
          , F1 , F2 , F3 , F4 , F5 ,                F6 , F7 , F8 , F9 ,F10 ,    ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-         ,    ,PGUP, UP ,PGDN,    ,               APOS, P7 , P8 , P9 ,COLN ,    ,
+         ,    ,PGUP, UP ,PGDN,    ,               APOS, P7 , P8 , P9 ,TAB ,    ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-     ,CAPSLOCK,LEFT,DOWN,RGHT,    ,               LPRN, P4 , P5 , P6 ,MINS,PLUS,
+     ,CAPSLOCK,LEFT,DOWN,RGHT,    ,               LPRN, P4 , P5 , P6 ,COLN,PLUS,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-         ,    ,    , SPC, ENT,    ,    ,    NLCK ,RPRN, P1 , P2 , P3 ,DOT ,    ,
+         ,    ,    , SPC, ENT,    ,    ,    NLCK ,RPRN, P1 , P2 , P3 ,MINS,    ,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
-                           ,    ,    ,             ,    , P0
+                           ,    ,    ,             , P0 , DOT
   //                  `----+----+----'        `----+----+----'
   ),
 // Archive mail in Mail.app
