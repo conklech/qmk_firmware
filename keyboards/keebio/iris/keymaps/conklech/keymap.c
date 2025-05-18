@@ -6,7 +6,7 @@ extern keymap_config_t keymap_config;
 #define _MACOS 1
 #define _LOWER 2
 #define _RAISE 3
-#define _ADJUST 16
+#define _ADJUST 15
 
 enum custom_keycodes {
   KC_WINDOWS = SAFE_RANGE,
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------|
      _______,KC_CAPS,KC_LEFT,KC_DOWN,KC_RGHT,_______,                     KC_LPRN, KC_P4 , KC_P5 , KC_P6 ,KC_COLN,KC_PLUS,
   //|-------+-------+-------+-------+-------+-------+-------.    ,-------|-------+-------+-------+-------+-------+-------|
-     _______,_______,_______, KC_SPC, KC_ENT,_______,_______,    KC_NLCK ,KC_RPRN, KC_P1 , KC_P2 , KC_P3 ,KC_MINS,_______,
+     _______,_______,_______, KC_SPC, KC_ENT,_______,_______,    KC_NUM  ,KC_RPRN, KC_P1 , KC_P2 , KC_P3 ,KC_MINS,_______,
   //`-------+-------+-------+-------+-------+-------+-------/    \-------+-------+-------+-------+-------+-------+-------'
                                    _______,_______,_______,         _______, KC_P0 , KC_DOT
   //                              `-------+-------+-------'        `-------+-------+-------'
@@ -149,11 +149,11 @@ F21::’
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    PROCESS_WINDOWS_MAC_KEY(KC_APOS, SS_TAP(X_F21), SS_LSFT(SS_LALT(SS_TAP(X_RBRACKET))));
+    PROCESS_WINDOWS_MAC_KEY(KC_APOS, SS_TAP(X_F21), SS_LSFT(SS_LALT(SS_TAP(X_LEFT_BRACKET))));
     PROCESS_WINDOWS_MAC_KEY(KC_WINLEFT, SS_LGUI(SS_TAP(X_LEFT)), SS_LGUI(SS_LALT(SS_TAP(X_LEFT))));
     PROCESS_WINDOWS_MAC_KEY(KC_WINRGHT, SS_LGUI(SS_TAP(X_RIGHT)), SS_LGUI(SS_LALT(SS_TAP(X_RIGHT))));
     PROCESS_WINDOWS_MAC_KEY(KC_WINMAX, SS_LGUI(SS_TAP(X_UP)), SS_LGUI(SS_LALT(SS_TAP(X_UP))));
-    PROCESS_WINDOWS_MAC_KEY(KC_WINDISP, "", SS_LCTRL(SS_LGUI(SS_LALT(SS_TAP(X_RIGHT)))));
+    PROCESS_WINDOWS_MAC_KEY(KC_WINDISP, "", SS_LCTL(SS_LGUI(SS_LALT(SS_TAP(X_RIGHT)))));
 
     // Use escape to cancel oneshot keys if active.
     case KC_ESC:
